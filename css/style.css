@@ -328,11 +328,11 @@ img {
 }
 
 .nav-link:hover span {
-    transform: translateY(-100%);
+    transform: translateY(-20%);
 }
 
 .nav-link:hover::after {
-    top: 0;
+    top: 80%;
 }
 
 .nav-menu-btn {

@@ -145,8 +145,8 @@ if (supportsHover && cursor && cursorFollower) {
     }
     animateCursor();
 
-    // Cursor hover effects
-    const hoverElements = document.querySelectorAll('a, button, [data-magnetic]');
+    // Cursor hover effects (excluding nav links)
+    const hoverElements = document.querySelectorAll('a:not(.nav-link), button, [data-magnetic]:not(.nav-link)');
 
     hoverElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
