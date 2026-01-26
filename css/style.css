@@ -186,74 +186,66 @@ img {
 
 .loader-content {
     text-align: center;
+    position: relative;
 }
 
 .loader-text {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
+    font-family: var(--font-primary);
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: 0.3rem;
+    color: #6366f1;
+    text-shadow: 0 0 30px rgba(99, 102, 241, 0.5),
+        0 0 60px rgba(168, 85, 247, 0.3);
 }
 
-.loader-letter {
-    font-family: var(--font-primary);
-    font-size: 4rem;
-    font-weight: 800;
+/* Scramble characters during animation */
+.loader-text .scramble-char {
+    display: inline-block;
+    color: #a855f7;
+    text-shadow: 0 0 10px rgba(168, 85, 247, 0.8),
+        0 0 20px rgba(168, 85, 247, 0.4);
+    animation: charGlitch 0.15s ease-in-out infinite;
+}
+
+@keyframes charGlitch {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: translateY(0) skewX(0deg);
+    }
+
+    25% {
+        opacity: 0.8;
+        transform: translateY(-2px) skewX(2deg);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(1px) skewX(-1deg);
+    }
+
+    75% {
+        opacity: 0.9;
+        transform: translateY(-1px) skewX(1deg);
+    }
+}
+
+/* Final revealed text */
+.loader-text.revealed {
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    opacity: 0;
-    transform: translateY(40px);
-    animation: letterReveal 0.6s var(--ease-out-expo) forwards;
+    text-shadow: none;
 }
 
-.loader-letter:nth-child(1) {
-    animation-delay: 0.1s;
-}
-
-.loader-letter:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.loader-letter:nth-child(3) {
-    animation-delay: 0.3s;
-}
-
-.loader-letter:nth-child(4) {
-    animation-delay: 0.4s;
-}
-
-.loader-letter:nth-child(5) {
-    animation-delay: 0.5s;
-}
-
-@keyframes letterReveal {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.loader-bar {
-    width: 200px;
-    height: 2px;
-    background: var(--color-surface);
-    border-radius: 2px;
-    overflow: hidden;
-    margin: 0 auto;
-}
-
-.loader-progress {
-    width: 0;
-    height: 100%;
-    background: var(--gradient-primary);
-    animation: loadProgress 2s var(--ease-out-expo) forwards;
-    animation-delay: 0.5s;
-}
-
-@keyframes loadProgress {
-    to {
-        width: 100%;
+/* Mobile loader adjustments */
+@media (max-width: 768px) {
+    .loader-text {
+        font-size: 1.75rem;
+        letter-spacing: 0.2rem;
     }
 }
 

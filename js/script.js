@@ -4,16 +4,108 @@
    ============================================ */
 
 // ===========================================
-// LOADER
+// LOADER WITH SCRAMBLE ANIMATION
 // ===========================================
 const loader = document.getElementById('loader');
+const loaderText = document.getElementById('loader-text');
 
+// Loader Text Scramble Animation
+class LoaderScramble {
+    constructor(el) {
+        this.el = el;
+        this.chars = '!<>-_\\/[—=+*^?@$%&XENO';
+        this.originalText = 'XENON';
+        this.frame = 0;
+        this.frameRequest = null;
+    }
+
+    start() {
+        this.scramble();
+
+        // After scrambling, reveal the final text
+        setTimeout(() => {
+            this.stopScramble();
+            this.reveal();
+        }, 250);
+    }
+
+    stopScramble() {
+        // Cancel any ongoing scramble animation
+        if (this.frameRequest) {
+            cancelAnimationFrame(this.frameRequest);
+            this.frameRequest = null;
+        }
+        this.frame = 0;
+    }
+
+    scramble() {
+        const animate = () => {
+            let output = '';
+            for (let i = 0; i < this.originalText.length; i++) {
+                const char = this.chars[Math.floor(Math.random() * this.chars.length)];
+                output += `<span class="scramble-char">${char}</span>`;
+            }
+            this.el.innerHTML = output;
+
+            this.frame++;
+            // Continue scrambling indefinitely until stopScramble is called
+            this.frameRequest = requestAnimationFrame(animate);
+        };
+        animate();
+    }
+
+    reveal() {
+        const duration = 800;
+        const startTime = performance.now();
+
+        const animate = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            let output = '';
+            for (let i = 0; i < this.originalText.length; i++) {
+                const charProgress = (progress - (i * 0.1)) * 2;
+                if (charProgress >= 1) {
+                    output += this.originalText[i];
+                } else if (charProgress > 0) {
+                    const char = this.chars[Math.floor(Math.random() * this.chars.length)];
+                    output += `<span class="scramble-char">${char}</span>`;
+                } else {
+                    const char = this.chars[Math.floor(Math.random() * this.chars.length)];
+                    output += `<span class="scramble-char">${char}</span>`;
+                }
+            }
+            this.el.innerHTML = output;
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                this.el.textContent = this.originalText;
+                // Hide loader after reveal
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                    document.body.style.overflow = 'visible';
+                    initAnimations();
+                }, 400);
+            }
+        };
+        requestAnimationFrame(animate);
+    }
+}
+
+// Initialize loader animation
 window.addEventListener('load', () => {
-    setTimeout(() => {
-        loader.classList.add('hidden');
-        document.body.style.overflow = 'visible';
-        initAnimations();
-    }, 2500);
+    if (loaderText) {
+        const scramble = new LoaderScramble(loaderText);
+        scramble.start();
+    } else {
+        // Fallback if loader text not found
+        setTimeout(() => {
+            loader.classList.add('hidden');
+            document.body.style.overflow = 'visible';
+            initAnimations();
+        }, 2000);
+    }
 });
 
 // ===========================================
