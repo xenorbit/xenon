@@ -145,8 +145,8 @@ if (supportsHover && cursor && cursorFollower) {
     }
     animateCursor();
 
-    // Cursor hover effects (excluding nav links, social links, and primary buttons)
-    const hoverElements = document.querySelectorAll('a:not(.nav-link):not(.social-link):not(.btn-primary), button, [data-magnetic]:not(.nav-link):not(.social-link):not(.btn-primary)');
+    // Cursor hover effects (excluding nav links, social links, primary buttons, and nav logo)
+    const hoverElements = document.querySelectorAll('a:not(.nav-link):not(.social-link):not(.btn-primary):not(.nav-logo), button, [data-magnetic]:not(.nav-link):not(.social-link):not(.btn-primary):not(.nav-logo)');
 
     hoverElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
