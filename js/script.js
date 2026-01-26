@@ -145,8 +145,8 @@ if (supportsHover && cursor && cursorFollower) {
     }
     animateCursor();
 
-    // Cursor hover effects (excluding nav links, social links, primary buttons, and nav logo)
-    const hoverElements = document.querySelectorAll('a:not(.nav-link):not(.social-link):not(.btn-primary):not(.nav-logo), button, [data-magnetic]:not(.nav-link):not(.social-link):not(.btn-primary):not(.nav-logo)');
+    // Cursor hover effects (excluding nav links, social links, primary buttons, nav logo, and email)
+    const hoverElements = document.querySelectorAll('a:not(.nav-link):not(.social-link):not(.btn-primary):not(.nav-logo):not(.contact-email), button, [data-magnetic]:not(.nav-link):not(.social-link):not(.btn-primary):not(.nav-logo):not(.contact-email)');
 
     hoverElements.forEach(el => {
         el.addEventListener('mouseenter', () => {
@@ -157,6 +157,21 @@ if (supportsHover && cursor && cursorFollower) {
         el.addEventListener('mouseleave', () => {
             cursor.classList.remove('hover');
             cursorFollower.classList.remove('hover');
+        });
+    });
+
+    // Simple hover effects (increase size only) - for primary buttons and email
+    const simpleHoverElements = document.querySelectorAll('.btn-primary, .contact-email');
+
+    simpleHoverElements.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.classList.add('simple-hover');
+            cursorFollower.classList.add('simple-hover');
+        });
+
+        el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('simple-hover');
+            cursorFollower.classList.remove('simple-hover');
         });
     });
 

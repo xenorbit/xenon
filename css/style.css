@@ -132,6 +132,16 @@ img {
     border-color: var(--color-accent);
 }
 
+.cursor.simple-hover {
+    width: 60px;
+    height: 60px;
+}
+
+.cursor-follower.simple-hover {
+    width: 80px;
+    height: 80px;
+}
+
 .cursor.text-mode {
     width: 100px;
     height: 100px;
