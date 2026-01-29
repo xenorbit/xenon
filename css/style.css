@@ -1004,7 +1004,7 @@ img {
 .skills-list li {
     font-size: 1rem;
     color: var(--color-text);
-    padding-left: 1rem;
+    padding-left: 1.5rem;
     position: relative;
 }
 
